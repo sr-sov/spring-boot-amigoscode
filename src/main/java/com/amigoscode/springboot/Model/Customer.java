@@ -1,4 +1,4 @@
-package com.amigoscode.springboot.Model;
+package com.amigoscode.springboot.model;
 
 import java.util.Objects;
 
