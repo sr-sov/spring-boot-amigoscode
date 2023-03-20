@@ -24,7 +24,6 @@ public class CustomerController {
 	private final CustomerServiceImpl customers;
 	//private final CustomerRepository customers;
 
-	
 	public CustomerController(CustomerServiceImpl customerService) {
 		customers = customerService;
 	}
@@ -41,21 +40,22 @@ public class CustomerController {
 	
 	
 	@PostMapping
-	public void addCustomer(@RequestBody NewCustomerRequest request) {
-		customers.addCustomer(request);
+	public void addCustomer(@RequestBody Customer customer) {
+		customers.addCustomer(customer);
 		//customers.save(customer);
 	}
 	
 	@DeleteMapping("{customerId}")
 	public void deleteCustomer(@PathVariable("customerId") Integer id) {
-		//customers.deleteById(id);
+		customers.deleteCustomer(id);
 	}
 	
 	@PutMapping("{customerId}")
 	public void updateCustomer(
 			@PathVariable("customerId") Integer id,
-			@RequestBody NewCustomerRequest request
+			@RequestBody Customer customer
 			){
+		//customers.updateCustomer(id, customer);
 		//Customer newCustomer = customers.findById(id);
 		//customers.save(newCustomer);
 	}
