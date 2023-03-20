@@ -28,7 +28,7 @@ public class Main {
 		return new GreetResponse(
 				"Hello",
 				List.of("Java", "Python", "JavaScript"),
-				new Person("Sov", 28, 50_000)
+				new Person("Sov", 28, 50_000f)
 				);
 	}
 	

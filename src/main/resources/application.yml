@@ -1,6 +1,19 @@
 server:
  port: 8080
- 
 spring:
- main:
-  web-application-type: servlet
+ datasource:
+  url: jdbc:postgresql://localhost:5432/dev
+  username: postgres
+  password: postgres
+ jpa:
+  hibernate.ddl-auto: update
+  properties:
+   hibernate:
+    dialect: org.hibernate.dialect.PostgreSQLDialect
+    format_sql: true
+  show-sql: true
+logging:
+ level: 
+  root: ERROR
+  org.springframework.web: DEBUG
+  com.amigoscode.springboot: DEBUG
