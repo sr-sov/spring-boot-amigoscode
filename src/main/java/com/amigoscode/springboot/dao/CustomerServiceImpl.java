@@ -27,13 +27,16 @@ public class CustomerServiceImpl {
 	public void addCustomer(Customer customer) {
 		Optional<Customer> customerByEmail = customerRepo.findCustomerByEmail(customer.getEmail());
 		if(customerByEmail.isPresent()) {
-			throw new IllegalStateException("email taken");
+			throw new IllegalStateException("email is already taken: "+ customer.getEmail());
 		}
 		//add Customer if email is not taken
 		customerRepo.save(customer);
 	}
 	
 	public void deleteCustomer(Integer id) {
+		if(!customerRepo.existsById(id)) {
+			throw new IllegalStateException("student with id " + id + " does not exist.");
+		}
 		customerRepo.deleteById(id);
 	}
 	
