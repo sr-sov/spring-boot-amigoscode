@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.amigoscode.springboot.dao.CustomerServiceImpl;
@@ -50,12 +51,17 @@ public class CustomerController {
 		customers.deleteCustomer(id);
 	}
 	
+	/*
+	 * We can use either @RequestParam or @RequestBody to update
+	 */
 	@PutMapping("{customerId}")
 	public void updateCustomer(
 			@PathVariable("customerId") Integer id,
+			@RequestParam(required = false) String name,
+			@RequestParam(required = false) String email,
 			@RequestBody Customer customer
 			){
-		//customers.updateCustomer(id, customer);
+		customers.updateCustomer(id, name, email, customer);
 		//Customer newCustomer = customers.findById(id);
 		//customers.save(newCustomer);
 	}

@@ -1,6 +1,7 @@
 package com.amigoscode.springboot.dao;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,6 +10,8 @@ import org.springframework.stereotype.Service;
 import com.amigoscode.springboot.model.Customer;
 import com.amigoscode.springboot.records.NewCustomerRequest;
 import com.amigoscode.springboot.repository.CustomerRepository;
+
+import jakarta.transaction.Transactional;
 
 @Service
 public class CustomerServiceImpl {
@@ -40,9 +43,19 @@ public class CustomerServiceImpl {
 		customerRepo.deleteById(id);
 	}
 	
-	public void updateCustomer(Customer customer) {
-		//customerRepo.findCustomerByName(customer.getName());
-		//Customer newCustomer = customerRepo.findById(id);
+	@Transactional
+	public void updateCustomer(Integer id, String name, String email, Customer customer) {
+		Customer newCustomer = customerRepo.findById(id)
+				.orElseThrow(() -> new IllegalStateException(
+						"customer with id " + id + " does not exist"));
+		if(name != null && name.length() > 0 && !Objects.equals(name, newCustomer.getName())) {
+			newCustomer.setName(name);
+		}
+		if(email != null && email.length() > 0 && !Objects.equals(email, newCustomer.getEmail())) {
+			newCustomer.setEmail(email);
+		}
+		newCustomer.setAge(customer.getAge());
+		
 		//customerRepo.save(newCustomer);
 	}
 }
